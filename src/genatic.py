@@ -11,45 +11,54 @@ from Nqueens import Nqueens as nq
 from itertools import combinations
 import random
 
-def genatic(board_size, generations=9000, population=20, mutaion_probability = 5):
+def genatic(board_size, generations=5000, population=25, mut_prob = .05):
 
     selection_num = 10 # poplation is even selected is half
-    
-    mut_prob = ( mutaion_probability )/100 # mutaion change %
 
     # Start with a random population
     parents = [nq(board_size) for _ in range(population)]
+    parents_sorted = sorted(parents,key= lambda p : p.conflicts(),reverse=True)
 
     for _ in range(generations):
-        # sort parents by fitness 
+
+        selected = parents_sorted[:selection_num]
+
+        # make cross over with the first 'selection_num' parents
+        # get random index for cross over
+        # the equation to be more likely to get first elements
+        for _ in range(selection_num):
+            rand_index = int(selection_num*(random.random()**7))
+            rand_index2 = int(selection_num*(random.random()**6))
+            if rand_index == rand_index2:
+                continue
+            # crossover in place
+
+            c = random.randint(0,board_size-1)
+            parents[rand_index].pos[c:],parents[rand_index2].pos[c:] = parents[rand_index2].pos[c:],parents[rand_index].pos[c:]
+            parents[rand_index].re_queen_pos()
+            parents[rand_index2].re_queen_pos()
+        
+
+        # mutation
+        for p in parents_sorted:
+            if random.random() < mut_prob:
+                p.pos[random.randint(0,board_size-1)] = random.randint(0,board_size-1)
+
+        # sort the parents
         parents_sorted = sorted(parents,key= lambda p : p.conflicts(),reverse=True)
 
-        if not(parents_sorted[0].has_conflict()):
-            return parents_sorted
+        first = parents_sorted[0].conflicts()
+        print(first)
             
 
-        c = 3 # cross over point
-        crossover(parents_sorted,selection_num,c,.4)
-        mutation(parents_sorted,mut_prob,board_size)
+        if first == 0:
+            return parents_sorted
 
     return parents_sorted
 
-# make cross over with the first 'selection_num' parents
-def crossover(parents,selection_num,c,c_prob):
-    # get first selection_num random combination
-    selected = random.sample(list(combinations(parents[:selection_num], 2)), selection_num)
-    # crossover in place
-    for s in selected:
-        if random.random() > c_prob:
-            continue
-        s[0].pos[c:],s[1].pos[c:] = s[1].pos[c:],s[0].pos[c:]
-        s[0].re_queen_pos()
-        s[1].re_queen_pos()
+
     
-def mutation(parents,mut_prob,board_size):
-    for p in parents:
-        if random.random() < mut_prob:
-            p.pos[random.randint(0,board_size-1)] = random.randint(0,board_size-1)
+
 
 
 

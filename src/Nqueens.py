@@ -21,10 +21,11 @@ class Nqueens:
 
     # display the board
     def __str__(self):
+        d = len(str(self.n))
         t = ""
         b = ["".join(row) for row in self.board]
         for i,e in enumerate(b):
-            t += f'{i}. {e}\n'
+            t += f'{i:0{d}d}. {e}\n'
         return t
     
     # put queens with positon 'pos' on the board

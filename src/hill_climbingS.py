@@ -34,7 +34,7 @@ def hill_climbing(board, max_iterations=50050,non_improving_limit = 10040):
                 if non_improving_limit > non_improving_counter:
                     non_improving_counter += 1
                 else:
-                    return None
+                    return current_state # Local minimum reached
 
-    return None  # Solution not found within max iterations
+    return board.empty_board  # Solution not found within max iterations
 

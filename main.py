@@ -8,62 +8,67 @@ import timeit
 # initial board
 # only n for random
 # n, initial positioin if wanted
-board = Nqueens(5)
+board = Nqueens(10)
 
 
-## example of hillclimbing
+#! ---------- Hill Climbing ---------------------------------------------------------------------------------------------------- !#
 
-"""
-start = timeit.default_timer()
+# # ? -------------------- Speady -------------------- ?#
 
-solution = climbingS.hill_climbing(board)
-print(solution.pos) # get positions
-print(solution) 
-print(solution.conflicts()) # number of conflicts or attacks
+# start_1 = timeit.default_timer()
 
-stop = timeit.default_timer()
-t1 = stop - start
-print('Fast approach Time: ', t1)
+# solution = climbingS.hill_climbing(board)
+# print(solution.pos)
+# print(solution) 
+# print(solution.conflicts())
 
-print 
+# stop_1 = timeit.default_timer()
 
-start = timeit.default_timer()
+# time_1 = stop_1 - start_1
+# print('Fast approach Time: ', round(time_1, 10), 'Seconds.')
 
-solution = climbing.hill_climbing(board)
-print(solution.pos)
-print(solution)
-print(solution.conflicts())
+# #? -------------------- Normal -------------------- ?#
 
-stop = timeit.default_timer()
-t2 = stop - start
-print('Normal approach Time: ', t2) 
+# start_2 = timeit.default_timer()
 
-print('first is',t2/t1,'x faster')
+# solution = climbing.hill_climbing(board)
+# print(solution.pos)
+# print(solution)
+# print(solution.conflicts())
 
-"""
+# stop_2 = timeit.default_timer()
+# time_2 = stop_2 - start_2
 
-# brute forcing using permutation
+# print('Normal approach Time: ', round(time_2, 10), 'Seconds.') 
 
-"""
-start = timeit.default_timer()
+# #? ------------------------------------------------ ?#
 
-solutions = force.brute(board)
-force.display(solutions)
+# print('First is', round(time_2/time_1, 5), 'x faster')
 
-stop = timeit.default_timer()
-
-print('Time: ', stop - start) 
-
-"""
-
-# brute forcing using back tracking
+# #? ------------------------------------------------ ?#
 
 
-start = timeit.default_timer()
 
-solutions = back.brute(board)
-back.display(solutions)
 
-stop = timeit.default_timer()
+#! ---------- Brute Forcing ---------------------------------------------------------------------------------------------------- !#
+time_limit = 3
+start_time = timeit.default_timer()
 
-print('Time: ', stop - start) 
+#? -------------------- Using Permutations -------------------- ?#   Very Slow After (n = 10).
+
+# solutions = force.brute(board, time_limit)
+# force.display(solutions,start_time)
+
+
+# ? -------------------- Using Backtracking -------------------- ?#   Slower After (n = 14).
+
+solutions = back.brute(board, time_limit)
+
+back.display(solutions,start_time)
+
+# ? ------------------------------------------------------------ ?#
+
+stop_time  = timeit.default_timer()
+executed_time = stop_time - start_time
+
+#! ----------------------------------------------------------------------------------------------------------------------------- !#

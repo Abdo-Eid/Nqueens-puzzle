@@ -36,4 +36,4 @@ def hill_climbing(board, max_iterations=10050,non_improving_limit = 600):
         # Move to the best state found
         current_state = best_move
         current_conflicts = best_conflicts
-    return None  # Solution not found within max iterations
+    return board.empty_board  # Solution not found within max iterations
