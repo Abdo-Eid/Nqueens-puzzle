@@ -1,14 +1,13 @@
 from src.Nqueens import Nqueens
 import src.hill_climbing as climbing
 import src.hill_climbingS as climbingS
-import src.brute_forcing as force
-import src.back_tracking as back
+import src.brute as brute
 import timeit
 
 # initial board
 # only n for random
 # n, initial positioin if wanted
-board = Nqueens(10)
+board = Nqueens(6)
 
 
 #! ---------- Hill Climbing ---------------------------------------------------------------------------------------------------- !#
@@ -56,15 +55,15 @@ start_time = timeit.default_timer()
 
 #? -------------------- Using Permutations -------------------- ?#   Very Slow After (n = 10).
 
-# solutions = force.brute(board, time_limit)
-# force.display(solutions,start_time)
+solutions = brute.force(board, time_limit)
+brute.display(solutions,start_time)
 
 
 # ? -------------------- Using Backtracking -------------------- ?#   Slower After (n = 14).
 
-solutions = back.brute(board, time_limit)
+solutions = brute.backtracking(board, time_limit)
 
-back.display(solutions,start_time)
+brute.display(solutions,start_time)
 
 # ? ------------------------------------------------------------ ?#
 
