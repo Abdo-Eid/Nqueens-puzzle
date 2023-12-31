@@ -16,7 +16,7 @@ class Nqueens:
 
         self.empty_board = [['- ']*self.n for _ in range(self.n)] # empty board
         self.board = self.putInPos(self.empty_board,self.pos) 
-        self.queens_pos = self.queens_pos(self.pos)
+        self.queens_pos = self.queens_p()
 
 
     # display the board
@@ -36,15 +36,13 @@ class Nqueens:
         return b
     
     # return how many queens in each column,postive and negative diagonals
-    @staticmethod
-    def queens_pos(pos):
-        n = len(pos)
-        col_queens = [0] * n
-        posdiag_queens = [0] * (2 * n - 1)
-        negdiag_queens = [0] * (2 * n - 1)
-        for row,col in enumerate(pos):
+    def queens_p(self):
+        col_queens = [0] * self.n
+        posdiag_queens = [0] * (2 * self.n - 1)
+        negdiag_queens = [0] * (2 * self.n - 1)
+        for row,col in enumerate(self.pos):
             col_queens[col] +=1
-            posdiag_queens[col - row + n - 1] +=1
+            posdiag_queens[col - row + self.n - 1] +=1
             negdiag_queens[col + row] +=1
 
         return [col_queens,posdiag_queens,negdiag_queens]
@@ -81,3 +79,12 @@ class Nqueens:
     
     def copy(self):
         return deepcopy(self)
+    
+    def has_conflict(self):
+        for r in range(self.n):
+            if self.confilct(r) > 0:
+                return True
+        return False
+    
+    def re_queen_pos(self):
+        self.queens_pos = self.queens_p()

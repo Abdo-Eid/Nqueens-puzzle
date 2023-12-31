@@ -8,7 +8,7 @@ import timeit
 # initial board
 # only n for random
 # n, initial positioin if wanted
-board = Nqueens(8)
+board = Nqueens(5)
 
 
 ## example of hillclimbing
