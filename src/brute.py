@@ -114,7 +114,9 @@ def display(solutions,start_time,draws_num = 3):
         executed_time = timeit.default_timer() - start_time
         solve(solutions)
         print(f'\n{length} Solutions found within {round(executed_time, 5)} Seconds. Using Permutations Algorithm.')
-    
+
+        if draws_num == 0:
+            return
         # display 3 random solutions
         # get the index of the 3
         draws_index = random.sample(range(length), draws_num)

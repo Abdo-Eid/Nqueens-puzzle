@@ -13,13 +13,13 @@ board = Nqueens(n)
 
 
 # #! ---------- Brute Forcing ---------------------------------------------------------------------------------------------------- !#
-# time_limit = 3
-# start_time = timeit.default_timer()
+time_limit = 3
+start_time = timeit.default_timer()
 
 # #? -------------------- Using Permutations -------------------- ?#   Very Slow After (n = 10).
 
-# solutions = brute.force(board, time_limit)
-# brute.display(solutions,start_time)
+solutions = brute.force(board, time_limit)
+brute.display(solutions,start_time,0)
 
 
 # # ? -------------------- Using Backtracking -------------------- ?#   Slower After (n = 14).
@@ -29,9 +29,6 @@ board = Nqueens(n)
 # brute.display(solutions,start_time)
 
 # # ? ------------------------------------------------------------ ?#
-
-# stop_time  = timeit.default_timer()
-# executed_time = stop_time - start_time
 
 
 
@@ -74,14 +71,14 @@ board = Nqueens(n)
 
 # #! ------------ Genatic ---------------------------------------------------------------------------------------------- !#
 
-start = timeit.default_timer()
+# start = timeit.default_timer()
 
-solution = gen.genatic(n)
-print(solution.pos)
-print(solution)
-print(solution.conflicts())
+# solution = gen.genatic(n)
+# print(solution.pos)
+# print(solution)
+# print(solution.conflicts())
 
-stop = timeit.default_timer()
-time_2 = stop - start
+# stop = timeit.default_timer()
+# time_2 = stop - start
 
-print('Time: ', round(time_2, 10), 'Seconds.') 
+# print('Time: ', round(time_2, 10), 'Seconds.') 
