@@ -22,7 +22,7 @@ def backtracking(board, time_limit_Sec = 9):
     col = set()
     pos_diag = set()  # (col - row)
     neg_diag = set()  # (col + row)
-    result = []
+    solutions = []
     places = [None for _ in range(n)]
 
     # using backtracking
@@ -33,7 +33,7 @@ def backtracking(board, time_limit_Sec = 9):
             return
         
         if row == n:
-            result.append(places.copy())  # Append a copy of places
+            solutions.append(places.copy())  # Append a copy of places
             return
 
         for c in range(n):
@@ -56,7 +56,7 @@ def backtracking(board, time_limit_Sec = 9):
     start_time = timeit.default_timer()
     # starting from raw 0 to n
     place_queen(0)
-    return result
+    return solutions
 
 
 #* Generate all possible permutations of columns indices, with respect to the time limit.
