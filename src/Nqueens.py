@@ -89,3 +89,9 @@ class Nqueens:
     
     def re_queen_pos(self):
         self.queens_pos = self.queens_p()
+
+    # @staticmethod
+    # def empty(n):
+    #     self = Nqueens(n)
+    #     self.board = self.empty_board
+    #     return self

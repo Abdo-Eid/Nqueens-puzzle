@@ -7,62 +7,50 @@
 # crossover (Combine two individuals to create new individuals for possible inclusion in next generation)
 # mutation (Each component of every individual is modified with by small probability)
 
-from Nqueens import Nqueens as nq
+from src.Nqueens import Nqueens as nq
 from itertools import combinations
 import random
 
-def genatic(board_size, generations=5000, population=25, mut_prob = .05):
+# it takes 5 sec for 3400 generations and population_size = 55
+# it takes 6 sec for 2000 generations and population_size = 100
 
-    selection_num = 10 # poplation is even selected is half
+def genatic(board_size, generations=2000, population_size=100, mut_prob = .5):
 
-    # Start with a random population
-    parents = [nq(board_size) for _ in range(population)]
-    parents_sorted = sorted(parents,key= lambda p : p.conflicts(),reverse=True)
 
-    for _ in range(generations):
+    """Generate an initial random population."""
+    population = [nq(board_size) for _ in range(population_size)]
 
-        selected = parents_sorted[:selection_num]
-
-        # make cross over with the first 'selection_num' parents
-        # get random index for cross over
-        # the equation to be more likely to get first elements
-        for _ in range(selection_num):
-            rand_index = int(selection_num*(random.random()**7))
-            rand_index2 = int(selection_num*(random.random()**6))
-            if rand_index == rand_index2:
-                continue
-            # crossover in place
-
-            c = random.randint(0,board_size-1)
-            parents[rand_index].pos[c:],parents[rand_index2].pos[c:] = parents[rand_index2].pos[c:],parents[rand_index].pos[c:]
-            parents[rand_index].re_queen_pos()
-            parents[rand_index2].re_queen_pos()
-        
-
-        # mutation
-        for p in parents_sorted:
-            if random.random() < mut_prob:
-                p.pos[random.randint(0,board_size-1)] = random.randint(0,board_size-1)
+    for generation in range(generations):
 
         # sort the parents
-        parents_sorted = sorted(parents,key= lambda p : p.conflicts(),reverse=True)
+        population = sorted(population,key= lambda p : p.conflicts())
 
-        first = parents_sorted[0].conflicts()
-        print(first)
-            
-
+        first = population[0].conflicts()
         if first == 0:
-            return parents_sorted
+            print(f"Solution found in generation {generation}")
+            return population[0]
+        
+        # print(first) # enable to see progress
 
-    return parents_sorted
-
-
+        new_population = population[:10]  # Keep the best solution
+        while len(new_population) < population_size:
+            parent1 = random.choice(new_population)
+            parent2 = random.choice(new_population)
+            child = crossover(board_size, parent1, parent2)
+            mutate(board_size, child, mut_prob)
+            new_population.append(child)
     
 
+        population = new_population
+            
+    print("No solution found.")
+    return population[0]
 
+def crossover(board_size,parent1,parent2):
+    c = random.randint(1,board_size-1)
+    child_pos = parent1.pos[:c] + parent2.pos[c:]
+    return  nq(1,child_pos)
 
-
-
-s = genatic(5)
-print(s[0])
-print(s[0].conflicts())
+def mutate(board_size, child, mut_prob):
+    if random.random() < mut_prob:
+        child.changePos(random.randint(0,board_size-1),random.randint(0,board_size-1))
