@@ -43,10 +43,10 @@ def genatic(board_size, generations=1500, population_size=100):
             population = population[:5]+[nq(board_size) for _ in range(5,population_size)]
 
         if first == 0:
-            print(f"Solution found in generation {generation}")
-            return population[0]
+            yield (population[0],f'solution found in {generation}')
+            return 
         
-        print(first) # enable to see progress
+        yield (random.choice(population[:10]),f"generation {generation} fitness is {first}")
 
         new_population = population[:2]  # Keep the best solution
         while len(new_population) < population_size:
@@ -61,8 +61,7 @@ def genatic(board_size, generations=1500, population_size=100):
 
         population = new_population
             
-    print("No solution found.")
-    return population[0]
+    yield (population[0],f"no solution found best fitness is {first}")
 
 def crossover(board_size,parent1,parent2):
     c = random.randint(1,board_size-1)
