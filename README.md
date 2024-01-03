@@ -22,3 +22,5 @@ within n^2 iterations if a better state is found it takes it immediately.
 
 #### 5. genetic algorithm
 using generation and choosing the best solutions then making them produce to make the new population until reaching the solution by lowering the fitness with each generation 
+
+### For GUI use app.py (only hill climbing and genetic)
