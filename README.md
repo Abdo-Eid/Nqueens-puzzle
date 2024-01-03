@@ -19,3 +19,6 @@ and terminate if the solution is found or stuck in the Local minimum
 #### 4. Hillclimbing Speed
 the same as traditional Hillclimbing, but I made the next state to be generated randomly
 within n^2 iterations if a better state is found it takes it immediately. 
+
+#### 5. genetic algorithm
+using generation and choosing the best solutions then making them produce to make the new population until reaching the solution by lowering the fitness with each generation 
